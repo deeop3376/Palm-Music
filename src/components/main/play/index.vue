@@ -117,7 +117,7 @@ export default {
           songId: this.songId,
           isCollection:false
         };
-
+console.log(this.songInfo)
         if(this.songInfo.lyricArr.length==0){
         this.songInfo.songName=this.$route.query.songName;
         this.songInfo.singer=this.$route.query.singer;

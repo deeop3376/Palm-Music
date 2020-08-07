@@ -6,7 +6,7 @@ module.exports={
         proxy:{
             
             '/':{
-                target:'https://api.qq.jsososo.com',
+                target:'http://localhost:3300',
                 changeOrigin:true,
                 ws:true,
                 secure:false,
@@ -14,7 +14,15 @@ module.exports={
                 //     '^api':''
                 // }
             },
-
+            // '/song':{
+            //     target:'https://localhost:3000',
+            //     changeOrigin:true,
+            //     ws:true,
+            //     secure:false,
+            //     // pathRewrite:{
+            //     //     '^api':''
+            //     // }
+            // },
         }
     }
 }

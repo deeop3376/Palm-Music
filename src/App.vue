@@ -8,7 +8,9 @@
 .app{
   width: 100%;
   height: 100%;
-  max-width: 720px;
+  max-width: 1025px;
   margin:0 auto;
+  position:relative;
+  top:0;
 }
 </style>

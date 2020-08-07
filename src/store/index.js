@@ -37,7 +37,7 @@ export default new Vuex.Store({
       state.songList=payload.songList
     }
   },
-  actions: {
+  actions: { 
 
     fetchSongInfo({ state, commit }) {
       return new Promise((resolve) => {

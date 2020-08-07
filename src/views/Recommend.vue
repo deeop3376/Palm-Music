@@ -1,8 +1,8 @@
 <template>
   <div class="recommend">
     <loading v-if="isLoading" />
-    <my-swiper :swiper-list="swiperList" :swiper-options="swiperOption" @img-load="scrollRefresh" />
-    <div class="songSheetList pos-r t-0">
+    <my-swiper :swiper-list="swiperList" :swiper-options="swiperOption" @img-load="scrollRefresh" @img-size="imgSize" />
+    <div class="songSheetList pos-r t-0" ref="songList">
       <Scroll :top="0" :list="hotSong" ref="scroll">
         <div class="scroll-wrapper">
           <song-sheet-list :hot-song="hotSong" />
@@ -59,11 +59,20 @@ export default {
     scrollRefresh() {
       this.$refs.scroll.refresh();
       this.isLoading = false;
+    },
+    imgSize(imgHeight){
+
+      let songList=document.querySelector('.songSheetList')
+     let clientHeight= document.documentElement.clientHeight || document.body.clientHeight
+    songList.style.height=clientHeight- 130-imgHeight+'px'
     }
   },
   created() {
     this.fetchSwiperList();
     this.fetchHotSong();
+  },
+  mounted(){
+    
   }
 };
 </script>

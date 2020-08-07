@@ -2,7 +2,7 @@
 <div class='my-swiper'>
   <swiper ref="mySwiper" :options="swiperOptions">
     <swiper-slide v-for="(item,i) of swiperList" :key="i">
-      <img :src="item.img" alt="lunbo" class="w100" @load="imgLoad">
+      <img :src="item.img" alt="lunbo" class="w100" @load="imgLoad" ref="imgSize">
     </swiper-slide>
     <div class="swiper-pagination" slot="pagination"></div>
   </swiper>
@@ -16,7 +16,7 @@ export default {
 name:'',
 data() {
     return {
-
+      imgHeight:0
     }
 },
 props: {
@@ -31,13 +31,20 @@ props: {
 },
 components: {
     Swiper,
-    SwiperSlide
+    SwiperSlide 
   },
 methods:{
   imgLoad(){
     
+    
+    this.imgHeight=this.$refs.imgSize[0].height
+    this.$emit('img-size',this.imgHeight)
+    
     this.$emit('img-load')
   }
+},
+mounted(){
+  
 }
   
 }

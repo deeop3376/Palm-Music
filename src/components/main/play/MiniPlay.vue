@@ -29,7 +29,7 @@
         </ul>
       </Scroll>
     </div>
-    <div class="d-flex ai-center pos-r top-0" @click="goPlay1">
+    <div class="infosong d-flex ai-center pos-r top-0" @click="goPlay1">
       <img src="@/assets/music.jpg" alt="song" class="img" ref="img" />
       <div class="play-left d-flex flex-wrap">
         <span class="text-hidden w100">{{songName}}</span>
@@ -166,6 +166,9 @@ export default {
   left: 0px;
   width: 224px;
 }
+.infosong{
+  width:calc(100% - 100px)
+}
 .songTool {
   width: 100px;
   font-size: 40px;
@@ -203,7 +206,7 @@ export default {
   display: block;
 }
 .play-left {
-  width: calc(100vw - 180px);
+  width: calc(100% - 180px);
 }
 .text-hidden {
   width: 100%;

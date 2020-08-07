@@ -5,6 +5,9 @@ import store from './store'
 import axios from 'axios'
 import Rem from './components/common/Rem'
 Rem()
+window.addEventListener('resize',()=>{
+  history.go(0)
+})
 import lazyload from 'vue-lazyload'
 Vue.use(lazyload,{
   loading: require('./assets/loading.jpg')

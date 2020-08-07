@@ -1,7 +1,7 @@
 <template>
 <div class='main'>
     <main-header 
-    title="Function Music" 
+    title="Palm Music" 
     @nav-click="toPath"/>
     <keep-alive>
         <router-view></router-view>
@@ -32,5 +32,5 @@ methods: {
 }
 </script>
 <style scoped>
-.main{max-width: 720px;margin:0 auto;}
+/* .main{width:100%;max-width:720px;} */
 </style>
