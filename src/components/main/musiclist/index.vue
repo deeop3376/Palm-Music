@@ -2,16 +2,16 @@
 <div class='music-list'>
     <ul>
         <li 
-        class="d-flex flex-wrap ai-center border-b border-t py-2 pl-3"
+        class="d-flex flex-wrap ai-center  py-2 pl-3"
         v-for="(item,i) in musicList" :key="item.songId"
         @click="goPlay(item.songId,item.songName,item.singer[0].name)"
         >
             <div style="width:30px;">
                 <span class="mr-4">{{i+1}}</span>
             </div>
-            <div class="d-flex flex-wrap ai-center songInfo">
-                <span class="text-hidden w100">{{item.songName}}</span>
-                <span class="text-hidden w100">
+            <div class="d-flex flex-wrap  songInfo">
+                <span class="text-hidden">{{item.songName}}</span>
+                <span class="text-hidden ">
                     <span 
                     class="text-gray2 text-xs"
                    
@@ -57,5 +57,5 @@ methods: {
 <style scoped>
 .music-list{border-radius: 10px;position: relative;top: 0px;z-index: 4;background-color: white;}
 .text-hidden{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
-.songInfo{width:calc(100vw - 60px)}
+.songInfo{flex-direction: column;width: calc(100%  - 42px)}
 </style>

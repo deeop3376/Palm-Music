@@ -13,7 +13,8 @@ export default new Vuex.Store({
     isPlaying:false,
     currentTime:0,
     duration:0,
-    songList:[]
+    songList:[],
+    testSrc:'http://117.128.6.13/cache/122.226.161.16/amobile.music.tc.qq.com/M500004LZrCi21H0gp.mp3?guid=4684796&vkey=F7135983F4D1F61721E3ECDFCDEE6DEC0AF4EE316FDB69EDFCD995F8892EE79CF33C83A72EBF2FB395DC743569C47B663B4C52A829D745E6&uin=1899&fromtag=66&ich_args2=546-09162504024545_b18283d9c6beefec9fb62b2a60653231_10004311_9c896d2adec5f0d49333518939a83798_88db24c9e21f2fd73bd23aea4df796f3'
   },
   mutations: {
     setSongId(state, payload) {

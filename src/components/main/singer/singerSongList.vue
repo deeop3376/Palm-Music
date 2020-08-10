@@ -1,25 +1,29 @@
 <template>
 <div class='singerSongList'>
     <loading v-if="isLoading"  />
+    <Scroll :list="songList" ref="scroll" :top="0" class="scrollwraper">    
+        <div class="scrollWrap">  
     <div class="songSheetBg w100 " style="height:300px;overflow:hidden">
        <div class="pos-a text-white pl-3 pt-3">
            <span @click="goPre"><i class="iconfont icon-back"></i></span>
-          <div  style="position:relative;top:200px;left:0px;" class="d-flex flex-wrap">
+          <div class="singerName d-flex flex-wrap">
                <span class="w100 mb-2">{{singer}}</span>
                 
           </div>
        </div>
         <img :src="singer_pic" alt="" class="w100" @load="imgLoad">
     </div>
-   
-       <div class="mlist">
+   <music-list :music-list="songList" /> 
+       <!-- <div class="mlist">
            <Scroll :list="songList" ref="scroll" :top="0" class="scrollwraper">       
                 <music-list :music-list="songList" />        
             </Scroll>
-       </div>
-    <div class="miniplayer">
+       </div> -->
+    <!-- <div class="miniplayer">
         <miniplay  />
+    </div> -->
     </div>
+     </Scroll>
 </div>
 </template>
 
@@ -27,7 +31,7 @@
 import musicList from '@/components/main/musiclist'
 import loading from '@/components/common/loading'
 import Scroll from '@/components/common/Scroll'
-import miniplay from '@/components/main/play/MiniPlay'
+// import miniplay from '@/components/main/play/MiniPlay'
 import api from '@/api'
 export default {
 name:'songSheetInfo',
@@ -35,7 +39,7 @@ components: {
     musicList,
     loading,
     Scroll,
-    miniplay
+    // miniplay
 },
 data() {
 return {
@@ -50,8 +54,10 @@ return {
 
 created(){
     this.singer_mid=this.$route.query.mid
+
     this.singer_pic=this.$route.query.singer_pic
-    
+   this.singer_pic=this.singer_pic.replace('http://y.gtimg.cn','https://y.qq.com')
+        .replace('150x150','800x800').replace('.webp','_1.jpg')
    this.getSingerSongList()
    
 },
@@ -82,5 +88,7 @@ methods: {
 /* .scroll-wrapper{position: relative;top:-20px;} */
 /* .musiclist{position: relative;top:0;} */
 
-.mlist{position: relative;top:0;height: calc(100vh - 360px)}
+.mlist{position: relative;top:0;height: calc(100vh - 300px)}
+.singerName{position:relative;top:200px;left:0px;font-size: 30px;}
+.icon-back{color:#1a73e8;}
 </style>

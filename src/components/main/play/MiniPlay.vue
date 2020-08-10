@@ -1,11 +1,11 @@
 <template>
   <div class="miniplayer d-flex jc-between">
     <div class="toggle" ref="to">
-      <p v-if="playList.length==0" style="line-height:400px;text-align:center;">空空如也</p>
+      <p v-if="playList.length==0" style="line-height:300px;text-align:center;">空空如也</p>
       <Scroll :list="playList" ref="scroll" :ele="ele">
         <ul>
           <li
-            class="d-flex flex-wrap ai-center border-b border-t py-2 pl-3"
+            class="d-flex flex-wrap ai-center  py-2 pl-3"
             v-for="(item,i) in playList"
             :key="item.songId"
             @click="goPlay(item.songId,item.songName,item.singer[0].name)"
@@ -41,7 +41,7 @@
       <i v-else @click="pauseMusic" class="iconfont icon-song-pause"></i>
       <i @click="getPlayList" class="iconfont icon-menu ml-2"></i>
     </div>
-    <audio :src="songUrl" ref="audio" hidden="true"></audio>
+    <audio :src="songUrl" @ended="musicEnd" ref="audio" hidden="true"></audio>
     <messageBox :message="showMessage" :isDisplay="isDisplay" />
   </div>
 </template>
@@ -101,6 +101,7 @@ export default {
        this.playList = this.$store.state.songList;
              let a = this.$refs.to;
       this.isToggle = !this.isToggle;
+      console.log(this.isToggle)
       if (this.isToggle) {
         a.className = "toggle active";
       } else {
@@ -135,6 +136,9 @@ export default {
       this.isPlaying = !this.isPlaying;
       this.$refs.audio.pause();
       this.$refs.img.className = "img";
+    },
+    musicEnd(){
+      this.pauseMusic()
     }
   },
   beforeDestroy() {
@@ -148,9 +152,12 @@ export default {
 .miniplayer {
   height: 60px;
   width: 100%;
-  background-color: #e0e0e0;
-  position: absolute;
+  max-width: 1025px;
+  background-color: white;
+  position: fixed;
   bottom: 0;
+  left:50%;
+  transform: translate(-50%,0)
 }
 .img {
   width: 50px;
@@ -186,7 +193,7 @@ export default {
 }
 .toggle {
   width: 95%;
-  height: 400px;
+  height: 300px;
   background-color: white;
   position: absolute;
   top: 0px;
@@ -197,16 +204,17 @@ export default {
  left: 50%;
  transform: translateX(-50%);
  box-shadow: 0px 0px 5px gray;
+
 }
 .active {
   opacity: 1;
-  top: -400px;
+  top: -300px;
   visibility: visible;
   z-index: 999;
   display: block;
 }
 .play-left {
-  width: calc(100% - 180px);
+  width: calc(100% - 50px);
 }
 .text-hidden {
   width: 100%;
@@ -239,4 +247,5 @@ export default {
   width: calc(100% - 60px);
 }
 .green{color:green;}
+.icon-menu,.icon-song-pause,.icon-song-play{color:#1a73e8;}
 </style>

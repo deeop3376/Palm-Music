@@ -1,6 +1,8 @@
 <template>
-<div class='main'>
+<div class='rankInfo'>
     <loading v-if="isLoading"  />
+    <Scroll :list="songList" ref="scroll" :top="0" class="scrollwraper">  
+        <div class="scrollWrap">
     <div class="songSheetBg w100 " style="height:300px;overflow:hidden">
        <div class="pos-a text-white pl-3 pt-3">
            <span @click="goPre"><i class="iconfont icon-back"></i> 排行榜</span>
@@ -13,14 +15,17 @@
        </div>
         <img :src="picUrl" alt="" class="w100" @load="imgLoad">
     </div>
-       <div class="mlist">
+    <music-list :music-list="songList" /> 
+       <!-- <div class="mlist">
            <Scroll :list="songList" ref="scroll" :top="0" class="scrollwraper">       
                 <music-list :music-list="songList" />        
             </Scroll>
-       </div>
-    <div class="miniplayer">
+       </div> -->
+    <!-- <div class="miniplayer">
         <miniplay  />
+    </div> -->
     </div>
+    </Scroll>
 </div>
 </template>
 
@@ -28,14 +33,14 @@
 import musicList from '@/components/main/musiclist'
 import loading from '@/components/common/loading'
 import Scroll from '@/components/common/Scroll'
-import miniplay from '@/components/main/play/MiniPlay'
+// import miniplay from '@/components/main/play/MiniPlay'
 export default {
 name:'songSheetInfo',
 components: {
     musicList,
     loading,
     Scroll,
-    miniplay
+    // miniplay
 },
 data() {
 return {
@@ -84,5 +89,6 @@ methods: {
 /* .scroll-wrapper{position: relative;top:-20px;} */
 /* .musiclist{position: relative;top:0;} */
 
-.mlist{position: relative;top:0;height: calc(100vh - 360px)}
+.mlist{position: relative;top:0;height: calc(100vh - 300px)}
+/* .rankInfo{position: relative;top:0;height: 100%;} */
 </style>

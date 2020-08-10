@@ -2,8 +2,14 @@
   <div class="app bg-gray1">
     
     <router-view/>
+
   </div>
 </template>
+<script>
+  export default{
+
+  }
+</script>
 <style>
 .app{
   width: 100%;

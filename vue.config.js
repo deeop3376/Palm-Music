@@ -6,7 +6,7 @@ module.exports={
         proxy:{
             
             '/':{
-                target:'http://localhost:3300',
+                target:'https://api.qq.jsososo.com',
                 changeOrigin:true,
                 ws:true,
                 secure:false,

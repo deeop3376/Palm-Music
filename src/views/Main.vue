@@ -31,6 +31,6 @@ methods: {
 },
 }
 </script>
-<style scoped>
-/* .main{width:100%;max-width:720px;} */
+<style scoped> 
+/* .main{width:100%;max-width:1024px;}  */
 </style>

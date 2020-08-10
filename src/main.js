@@ -5,8 +5,14 @@ import store from './store'
 import axios from 'axios'
 import Rem from './components/common/Rem'
 Rem()
+// let clientWidth=document.documentElement.clientWidth
+let mobile=navigator.userAgent.toLowerCase().includes('mobile')
+// alert(navigator.userAgent)
 window.addEventListener('resize',()=>{
-  history.go(0)
+  let nowType=navigator.userAgent.toLowerCase().includes('mobile')
+  if(!mobile && nowType ){
+    history.go(0)
+  }
 })
 import lazyload from 'vue-lazyload'
 Vue.use(lazyload,{

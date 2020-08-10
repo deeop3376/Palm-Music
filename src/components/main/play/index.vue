@@ -8,7 +8,7 @@
         <span class="w100 text-lg">{{songInfo.songName}}</span>
         <span class="mt-2">{{songInfo.singer}}</span>
       </div>
-    </div>
+    </div> 
     <div class="lyric">
       <loading v-if="isLoading" />
       <Scroll :list="songInfo.lyricArr" ref="scroll" :top="0" :ele="ele">
@@ -26,6 +26,8 @@
       <audio
         @canplay="audioLoaded"
         controls
+        autoplay
+       
         :src="songInfo.songSrc"
        hidden="true"
         ref="audio"
@@ -41,7 +43,7 @@
         <i @click="preSong" class="iconfont icon-previous-song"></i>
         <i v-if="!audioReady" class="loading"></i>
         <span v-if="audioReady">
-          <i @click="playSong" v-if="!isPlay" class="iconfont icon-song-play"></i>
+          <i  @click="playSong" v-if="!isPlay" class="iconfont icon-song-play"></i>
           <i @click="pauseSong" v-else class="iconfont icon-song-pause"></i>
         </span>
         <i @click="nextSong" class="iconfont icon-next-song"></i>
@@ -53,8 +55,9 @@
 <script>
 import Scroll from "@/components/common/Scroll";
 import loading from "@/components/common/loading";
+import ua from '@/components/common/utils/browserType.js'
 export default {
-  name: "",
+  name: "player",
   components: {
     Scroll,
     loading
@@ -85,25 +88,42 @@ export default {
         second:0
       },
       songCanPlay:false,
+       audioCtx: "",
+       songLength:263,
       pushCount:-1  //代表router前进的步数，this.$router.push(pushCount),由于nextSong和preSong会改变router，所以每改变一次，pushCount减一
     };
   },
   created() {
 
-   this.getSongInfo()
+   
+  //  alert('created1')
+    // let auct = window.AudioContext || window.webkitAudioContext;
+    // let audioCtx = auct ? new AudioContext() : "";
+// alert('created2')
+//     this.audioCtx = audioCtx;
+// alert('created3')
+    this.getSongInfo()
     
   },
   mounted() {},
   methods: {
+    // aa(){
+    //   // alert('touch')
+    //   this.$refs.audio.play()
+    //   this.pauseSong()
+    //   // this.playSong()
+    // },
     getSongInfo(){
-          this.songId = this.$route.query.songId;
+      this.songId = this.$route.query.songId;
+      // alert(this.songId)
       this.songInfo.lyricArr = [];
-    if (window.localStorage.getItem(this.songId)) {
+      if (window.localStorage.getItem(this.songId)) {
       //如果本地存储中有该歌曲的信息，则从本地读取歌曲信息
       this.songInfo = JSON.parse(window.localStorage.getItem(this.songId));
       // console.log(this.songInfo);
       this.isLoading = false;
-    } else {
+      // this.testSound()
+      } else {
       //如果本地没有该歌曲的信息则向服务器请求该歌曲信息
       this.$store.commit("setSongId", { songId: this.songId });
 
@@ -117,7 +137,7 @@ export default {
           songId: this.songId,
           isCollection:false
         };
-console.log(this.songInfo)
+        
         if(this.songInfo.lyricArr.length==0){
         this.songInfo.songName=this.$route.query.songName;
         this.songInfo.singer=this.$route.query.singer;
@@ -125,7 +145,7 @@ console.log(this.songInfo)
         this.$store.commit('setSongInfo',{songName:this.songInfo.songName,singer:this.songInfo.singer})
         }
         this.isLoading = false;
-        
+        // this.testSound();
       });
     }
     },
@@ -171,9 +191,40 @@ console.log(this.songInfo)
     },
     audioLoaded() {
       this.duration = this.$refs.audio.duration;
+      if(this.duration<1){
+        this.duration=this.songLength
+      }
       this.audioReady=true
       this.durationTime.minute=Math.floor(this.duration/60)
       this.durationTime.second=Math.round(this.duration-this.durationTime.minute*60)    
+      // alert(audio.duration)
+      if(ua(navigator.userAgent)==="weChat"){
+        this.playSong()
+      }
+      if(this.$refs.audio.autoplay){
+        if(ua(navigator.userAgent)==='Mobile UC'){
+          console.log('uc')
+        }else if(ua(navigator.userAgent)==='Mobile Chrome'){
+          console.log('mobile chrome')
+        }else if(navigator.userAgent.toLowerCase().includes('opr')){
+          console.log('mobile operia')
+          
+        }
+        else{
+          
+          this.playSong()
+        }
+        
+        
+        // this.$refs.audio.play()
+        // this.$refs.audio.pause()
+        // this.playSong()
+      }
+      if(this.$refs.audio.duration>1){
+        // alert('pghhhgg')
+        // this.playSong()
+      }
+      // this.playSong()
     },
     goPre() {
       this.$router.go(this.pushCount);
@@ -181,7 +232,10 @@ console.log(this.songInfo)
     },
 
     playSong() {
+      //  alert('play')
       if(this.audioReady){
+              // this.$refs.audio.play()
+              // this.pauseSong()
         this.$refs.audio.play();
       this.isPlay = true;
 
@@ -215,6 +269,7 @@ console.log(this.songInfo)
       }
 
       this.autoLyric();
+     
       }else{
         alert('正在缓冲')
       }
@@ -263,7 +318,7 @@ console.log(this.songInfo)
         
     },
     preSong() {
- let playList=this.$store.state.songList
+      let playList=this.$store.state.songList
       let nowSongIndex=0
       for(let i=0;i<playList.length;i++){
         if(playList[i].songId==this.songId){
@@ -300,7 +355,7 @@ console.log(this.songInfo)
     },
     autoLyric() {
       // console.log("137");
-      let duration = this.$refs.audio.duration;
+      let duration = this.duration;
       //  let percentTime=duration/100
       if (this.timer) {
         clearInterval(this.timer);
@@ -322,7 +377,7 @@ console.log(this.songInfo)
         }
 
         self.currentTime = self.$refs.audio.currentTime;
-        
+        // alert('progressValue')
         //进度条的值为歌曲当前时间/歌曲总长度*100
         self.progressValue = (self.currentTime / duration) * 100;
         for (let i = 0; i < self.songInfo.lyricArr.length; i++) {
@@ -361,7 +416,45 @@ console.log(this.songInfo)
         }
       }, 500);
     },
+//=====================================
+     getBuffer(link) {
+      let self=this
+      return new Promise((resolve, reject) => {
+        
+        if (self.audioCtx) {
+          
+          let request = new XMLHttpRequest();
+          request.open("GET", link, true);
+          request.responseType = "arraybuffer";
+          request.onload = function() {
+            self.audioCtx.decodeAudioData(
+              request.response,
+              function(buffer) {
+                resolve(buffer);
+              },
+              function(e) {
+                console.log("reject");
+                reject(e);
+              }
+            );
+          };
+          request.send();
+        } else {
+          reject("not support AudioContext");
+        }
+      });
+    },
 
+   async testSound() {
+
+
+     let buf=await this.getBuffer(this.songInfo.songSrc) // item.sound是音频线上地址
+      this.songLength=buf.duration
+      if(this.songLength>1){
+        this.audioLoaded()
+      }
+    }
+//------------------------------------
   },
   beforeDestroy() {
     // console.log("destoryedddd");
@@ -400,7 +493,7 @@ progress::-webkit-progress-value {
 .icontool{width:80%;margin:0 auto;margin-top:10px;}
 .iconfont{font-size: 30px;}
 .icon-back{font-size: 20px;}
-.lyric{height:calc(100vh - 260px);position:relative;top:0px;margin:0 auto;padding-bottom:2px;
+.lyric{height:calc(100% - 260px);position:relative;top:0px;margin:0 auto;padding-bottom:2px;
 width: 90%;}
 .loading{width: 30px;height: 30px;border:2px solid gray;display: block;
 border-radius: 50%;border-right: none;border-top:none;animation: loading 2s infinite linear;}

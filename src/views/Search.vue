@@ -33,7 +33,7 @@
         </div>
     </div>
     <div class="common hot-search">
-        <p class="text-gray2 text-md" @click="test">热门搜索</p>
+        <p class="text-gray2 text-md" >热门搜索</p>
         <div class="common">
             <ul class="d-flex flex-wrap">
                 <li v-for="(item,i) in hotSearch" :key="i" 
@@ -49,7 +49,7 @@
     <div class="common search-history">
         <div class="d-flex jc-between ai-center">
             <p class="text-gray2 text-md">搜索历史</p>
-            <i class="el-icon-delete" @click="deleteHistory"></i>
+            <i class="iconfont icon-delete" @click="deleteHistory"></i>
         </div>
         <div class="common">
             <ul>
@@ -63,7 +63,15 @@
             </ul>
         </div>
     </div>
-
+ <!-- <audio
+        @canplay="audioLoaded"
+        controls
+        autoplay
+        :src="testSrc"
+       hidden="true"
+        ref="audio"
+        @durationchange="dc"
+      ></audio> -->
 
 </div>
 </template>
@@ -86,7 +94,8 @@ return {
     timer:null,
     searchHistoryList:[],
     testBox:false,
-    showMessage:'请选择要播放的歌曲'
+    showMessage:'请选择要播放的歌曲',
+    // testSrc:''
 }
 },
 watch: {
@@ -98,20 +107,18 @@ watch: {
     }
 },
 created() {
+    // this.testSrc=this.$store.state.testSrc
     this.getHotSearch()
     this.searchHistoryList=JSON.parse(window.localStorage.getItem('searchHistoryList'))
 },
 methods: {
-    test(){
-        console.log('aaaaaa')
-        this.message({
-            title:'this is search',
-            content:'this contenttttt',
-            messageTest(){
-                console.log('you clicked')
-            }
-        })
-    },
+    // audioLoaded(){
+    //     let audio = this.$refs.audio
+    //     alert(audio.duration)
+    // },
+    // durationchange(){
+    //     alert('dc'+this.$refs.audio.duration)
+    // },
     deleteHistory(){
         this.searchHistoryList=[]
     },

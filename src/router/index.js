@@ -15,6 +15,7 @@ import play from '@/components/main/play'
 import singerSongList from '@/components/main/singer/singerSongList'
 import rankInfo from '@/components/main/rank'
 import my from '@/components/main/my'
+import sound from '@/components/main/test'
   const routes = [
     { 
       path:'/',
@@ -34,7 +35,8 @@ import my from '@/components/main/my'
     {path:'/play',component:play},
     {path:'/singerSongList',component:singerSongList},
     {path:'/rankInfo',component:rankInfo},
-    {path:'/my',component:my}
+    {path:'/my',component:my},
+    {path:'/test',component:sound}
 ]
 
 const router = new VueRouter({
