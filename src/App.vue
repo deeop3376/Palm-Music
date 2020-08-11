@@ -24,7 +24,11 @@ export default {
         }
       }else if(from.path=='/play' && to.path=='/songSheetInfo'){
           this.ttName='Back'
-        }else{
+      }else if(from.path=='/play' && to.path=='/singerSongList'){
+        this.ttName='Back'
+      }else if(from.path=='/play' && to.path=='/rankInfo'){
+        this.ttName='Back'
+      }else{
           this.ttName=''
         }
     }
