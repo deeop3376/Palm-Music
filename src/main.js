@@ -7,7 +7,9 @@ import Rem from './components/common/Rem'
 Rem()
 // let clientWidth=document.documentElement.clientWidth
 let mobile=navigator.userAgent.toLowerCase().includes('mobile')
-// alert(navigator.userAgent)
+if(!mobile){
+  alert('按F12切换到移动端会有更好的使用体验哦')
+}
 window.addEventListener('resize',()=>{
   let nowType=navigator.userAgent.toLowerCase().includes('mobile')
   if(!mobile && nowType ){

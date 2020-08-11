@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div{
+            color:white;
+            font-size: 30px;
+        }
+        .father{
+            width: 400px;
+            border:1px solid black;
+        }
+        .son1{
+            width: 100px;
+            height: 100px;
+            background-color: blue;
+            float: left;
+        }
+        .son2{
+            width: 130px;
+            height: 130px;
+            background-color: red;
+            float: left;
+        }
+        .test{
+            width: 150px;
+            height: 150px;
+            background-color: green;
+            color:black;
+        }
+        .clearfix:after ,.clearfix:before{
+            content: '';
+            display: table;
+        }
+        .clearfix:after{
+            clear:both
+        }
+        .clearfix{
+            *zoom: 1; /* zoom:1;是ie6清除浮动的方式（其它浏览器看到*就不往下解析了）*/
+        }
+    </style> 
+</head>
+<body>
+        <div class="father clearfix">
+            <div class="son1">son1</div>
+            <div class="son2">son2</div>
+        </div>
+        <div class="test">test</div>
+        <script>
+            let xhr = new XMLHttpRequest()
+            xhr.open('get','http://127.0.0.1:3300/recommend/banner',true)
+            xhr.send()
+            xhr.onreadystatechange=function(){
+                if (xhr.readyState==4 && xhr.status==200){
+                    console.log(xhr.responseText)
+                }
+            }
+        </script>
+</body>
+</html> 

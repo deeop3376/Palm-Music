@@ -3,9 +3,11 @@
     <main-header 
     title="Palm Music" 
     @nav-click="toPath"/>
+    <!-- <transition :name="tName"> --> 
     <keep-alive>
         <router-view></router-view>
     </keep-alive>
+    <!-- </transition> -->
     <miniPlayer /> 
 </div>
 </template>  
@@ -21,9 +23,16 @@ components: {
 },
 data() {
 return {
-
+    // tName:''
 }
 },
+// watch:{
+//     $route(to,from){
+//         console.log('aaaa')
+//         console.log(from.path)
+//         console.log(to.path)
+//     }
+// },
 methods: {
     toPath(path){
         this.$router.push(path)

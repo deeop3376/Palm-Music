@@ -132,7 +132,7 @@ methods: {
     },
     async search(item1){
         var item=item1 || this.searchText
-        console.log(item)
+        
         //将要搜索的关键词放入localStorage中的搜索历史中
         if(window.localStorage.getItem('searchHistoryList')){ 
             let searchHistoryList=JSON.parse(window.localStorage.getItem('searchHistoryList'))
@@ -149,7 +149,6 @@ methods: {
         }
        
         const res = await this.$http.get('/search?key='+item)
-       console.log(res)
         this.searchResult= res.data.data.list.map(item=>{
             return {
                 songName:item.songname,

@@ -101,7 +101,7 @@ export default {
        this.playList = this.$store.state.songList;
              let a = this.$refs.to;
       this.isToggle = !this.isToggle;
-      console.log(this.isToggle)
+      
       if (this.isToggle) {
         a.className = "toggle active";
       } else {
@@ -214,7 +214,7 @@ export default {
   display: block;
 }
 .play-left {
-  width: calc(100% - 50px);
+  width: calc(100% - 75px);
 }
 .text-hidden {
   width: 100%;

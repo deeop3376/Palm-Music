@@ -83,7 +83,7 @@ export default {
           soundBuf = buf; // 存储，方便调用
 
            let sound;
-      alert(soundBuf.duration)
+      // alert(soundBuf.duration)
       if (soundBuf) {
         sound = this.createSound(soundBuf);
         sound.start(0); // 播放
